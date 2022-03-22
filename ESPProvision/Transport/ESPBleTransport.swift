@@ -238,6 +238,10 @@ class ESPBleTransport: NSObject, ESPCommunicable {
         ESPLog.log("Device configured status: \(utility.peripheralConfigured)")
         return utility.peripheralConfigured
     }
+
+	func reset() {
+		transportToken.signal()
+	}
 }
 
 // MARK: CBCentralManagerDelegate
