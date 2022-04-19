@@ -50,6 +50,8 @@ public class ESPProvisionManager: NSObject, AVCaptureMetadataOutputObjectsDelega
     private var scanCompletionHandler: ((ESPDevice?,ESPDeviceCSSError?) -> Void)?
     private var captureSession: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer?
+
+	public var scanProcessHandler: (() -> Void)?
     
     /// Member to access singleton object of class.
     public static let shared = ESPProvisionManager()
@@ -243,6 +245,9 @@ public class ESPProvisionManager: NSObject, AVCaptureMetadataOutputObjectsDelega
                     let transport:ESPTransport = transportInfo.lowercased() == "softap" ? .softap:.ble
                     let security:ESPSecurity = jsonArray["security"] ?? "1" == "0" ? .unsecure:.secure
                     let pop = jsonArray["pop"] ?? ""
+
+					scanProcessHandler?()
+
                     switch transport {
                     case .ble:
                         createESPDevice(deviceName: deviceName, transport: transport, security: security, proofOfPossession: pop, completionHandler: self.scanCompletionHandler!)
