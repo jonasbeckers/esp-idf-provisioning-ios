@@ -95,7 +95,7 @@ open class ESPDevice {
 	/// Completion handler for BLE connection status.
 	var bleConnectionStatusHandler: ((ESPSessionStatus) -> Void)?
 	/// Proof of possession
-	var proofOfPossession:String?
+	public internal(set) var proofOfPossession:String?
 	/// List of capabilities of a device.
 	public var capabilities: [String]?
 	/// Security implementation.
